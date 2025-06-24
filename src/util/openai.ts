@@ -6,6 +6,10 @@ import dotenv from 'dotenv';
 dotenv.config(); // 環境変数を読み込み
 
 export const getOnYourData = async (message: string): Promise<any[]> => {
+  console.log("✅ AZURE_OPENAI_API_ENDPOINT:", process.env.AZURE_OPENAI_API_ENDPOINT);
+  console.log("✅ AZURE_OPENAI_API_KEY:", process.env.AZURE_OPENAI_API_KEY ? "Exists" : "Not Set");
+  console.log("✅ AZURE_OPENAI_API_DEPLOYMENT_ID:", process.env.AZURE_OPENAI_API_DEPLOYMENT_ID);
+
   return new Promise(async (resolve, reject) => {
     const endpoint = process.env.AZURE_OPENAI_API_ENDPOINT!;
     const azureApiKey = process.env.AZURE_OPENAI_API_KEY!;
@@ -24,8 +28,15 @@ export const getOnYourData = async (message: string): Promise<any[]> => {
       ]
     }
 
-    const res = await axios.post(apiUrl, requestData)
-    console.log("🚀 ~ returnnewPromise ~ res:", res.data)
+   let res;
+    try {
+      res = await axios.post(apiUrl, requestData);
+      console.log("✅ API call success:", res.data);
+    } catch (error: any) {
+      console.error("❌ API call failed:", error?.response?.data || error.message);
+      reject("Backend call failure");
+      return;
+    }
 
     const content = `# 質問\n${message}\n# 回答\n${res.data}\n`
 
