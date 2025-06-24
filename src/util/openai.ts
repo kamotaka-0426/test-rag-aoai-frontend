@@ -2,6 +2,8 @@ import { AzureKeyCredential } from '@azure/core-auth';
 import { OpenAIClient } from '@azure/openai';
 import OpenAI from "openai";
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config(); // 環境変数を読み込み
 
 export const getOnYourData = async (message: string): Promise<any[]> => {
   return new Promise(async (resolve, reject) => {
@@ -14,7 +16,7 @@ export const getOnYourData = async (message: string): Promise<any[]> => {
     
     console.log('🚀 ~ On your data start ~ 🚀')
 
-    const apiUrl = '';
+    const apiUrl = 'https://app-kamoda01.azurewebsites.net/conversation';
 
     const requestData = {
       messages: [
