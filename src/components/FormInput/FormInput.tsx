@@ -1,5 +1,7 @@
 "use client"
 
+// /components/Forminput/FormInput.tsx
+
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { inputMessageToReduxStore } from "@/features/messageSlice"
@@ -26,7 +28,18 @@ const FormInput = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ message })
-    })
+    });
+
+    if (!response.ok) {
+      // エラー時にJSONでない可能性があるため、textで受け取る
+      const errorText = await response.text();
+      console.error('❌ API エラー:', response.status, errorText);
+      throw new Error(`API error ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log('✅ AIからの返答:', data.aiMessage);
+
 
     const { aiMessage } = await response.json()
 

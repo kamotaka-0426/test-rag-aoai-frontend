@@ -1,3 +1,4 @@
+// /app/main/page.tsx
 import FormInput from "@/components/FormInput/FormInput";
 import MessageArea from "@/components/MessageArea/MessageArea";
 

@@ -1,3 +1,4 @@
+// /features/messageSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 import { MessageType } from '../types/types';

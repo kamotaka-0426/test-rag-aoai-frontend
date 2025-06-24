@@ -1,3 +1,5 @@
+// /util/openai.ts
+
 import { AzureKeyCredential } from '@azure/core-auth';
 import { OpenAIClient } from '@azure/openai';
 import OpenAI from "openai";
